@@ -68,7 +68,7 @@
         }
 
         .change-bg-button {
-            background-color: #0a0a23;
+            background-color: #0078d4;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -117,25 +117,25 @@
     <div class="taskbar">
         <button class="start-button" onclick="toggleStartMenu()">开始</button>
         <div class="start-menu" id="startMenu">
-            <a href="https://apps.microsoft.com/" target="_blank">应用中心</a>
-            <a href="#" onclick="openNewWindow(); return false;">关于本机 (公告)</a>
+            <a href="#" onclick="openNewWindow1()"; return false;>应用中心</a>
+            <a href="#" onclick="openNewWindow2()"; return false;>关于本机 (公告)</a>
             <a href="https://peisi0.github.io/win11/">重启</a>
         </div>
     </div>
 
-    <a href="https://wokwi.com/projects/new/arduino-mega" target="_blank">
+    <a href="#" onclick="openNewWindow3()"; return false;>
         <img class="icon arduino-img" src="Arduino圖標.png" alt="Arduino">
     </a>
 
-    <a href="https://google.com" target="_blank">
+    <a href="#" onclick="openNewWindow4()"; return false;>
         <img class="icon google-img" src="GC.png" alt="Google">
     </a>
 
-    <a href="https://austin-pig.github.io/arduino" target="_blank">
+    <a href="#" onclick="openNewWindow5()"; return false;>
         <img class="icon arduino-folder-img" src="arduino-folder.png" alt="Arduino Folder">
     </a>
 
-    <a href="https://poe.com/" target="_blank">
+    <a href="#" onclick="openNewWindow6()"; return false;>
         <img class="icon poe-img" src="poe.png" alt="poe">   
     </a>
 
@@ -161,7 +161,27 @@
             document.body.style.backgroundImage = `url('bg${currentBackground}.png')`;
         }
 
-        function openNewWindow() {
+        function openNewWindow1() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+        }
+
+        function openNewWindow2() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+        }
+
+        function openNewWindow3() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+        }
+
+        function openNewWindow4() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+        }
+
+        function openNewWindow5() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+        }
+
+        function openNewWindow6() {
             window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
         }
 
