@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win11 模拟器</title>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* 使用视口高度 */
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-image: url('bg1.png'); /* 确保图片路径正确 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: rgba(37, 37, 38, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        
+        .start-button {
+            background-color: #0078d4;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .start-menu {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background-color: #dce4ef;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 1;
+        }
+        
+        .start-menu a {
+            color: #000000;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+        }
+        
+        .start-menu a:hover {
+            background-color: #0078d4;
+        }
+
+        .change-bg-button {
+            background-color: #0a0a23;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+        }
+        
+        
+        .arduino-img {
+            position: absolute;
+            width: 60px;
+            top: 20px;
+            left: 30px;
+        }
+        
+        .arduino-folder-img {
+            position: absolute;
+            width: 60px;
+            top: 110px;
+            left: 30px;
+        }
+        
+        .google-img {
+            position: absolute;
+            width: 120px;
+            top: 170px;
+            left: 0px;
+        }
+
+        .poe-img {
+            position: absolute;
+            width: 110px;
+            top: 265px;
+            left: 5px;
+        }
+       
+    </style>
+</head>
+<body>
+
+    <div class="taskbar">
+        <button class="start-button" onclick="toggleStartMenu()">开始</button>
+        <div class="start-menu" id="startMenu">
+            <a href="https://apps.microsoft.com/" target="_blank">应用中心</a>
+            <a href="#" onclick="openNewWindow(); return false;">关于本机 (公告)</a>
+            <a href="https://peisi0.github.io/win11/">重启</a>
+        </div>
+    </div>
+
+    <a href="https://wokwi.com/projects/new/arduino-mega" target="_blank">
+        <img class="icon arduino-img" src="Arduino圖標.png" alt="Arduino">
+    </a>
+
+    <a href="https://google.com" target="_blank">
+        <img class="icon google-img" src="GC.png" alt="Google">
+    </a>
+
+    <a href="https://austin-pig.github.io/arduino" target="_blank">
+        <img class="icon arduino-folder-img" src="arduino-folder.png" alt="Arduino Folder">
+    </a>
+
+    <a href="https://poe.com/" target="_blank">
+        <img class="icon poe-img" src="poe.png" alt="poe">   
+    </a>
+
+    <button class="change-bg-button" onclick="changeBackground()">切换背景</button>
+
+    <script>
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+        window.onclick = function(event) {
+            if (!event.target.matches('.start-button')) {
+                const menu = document.getElementById('startMenu');
+                if (menu.style.display === 'block') {
+                    menu.style.display = 'none';
+                }
+            }
+        }
+        let currentBackground = 1;
+
+        function changeBackground() {
+            currentBackground = (currentBackground % 4) + 1;
+            document.body.style.backgroundImage = `url('bg${currentBackground}.png')`;
+        }
+
+        function openNewWindow() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.start-button')) {
+                const menu = document.getElementById('startMenu');
+                if (menu.style.display === 'block') {
+                    menu.style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
