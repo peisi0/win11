@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win11 模拟器</title>
+    <link rel="icon" href="winwin.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* 使用视口高度 */
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-image: url('bg1.png'); /* 确保图片路径正确 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background-color: rgba(230, 230, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        
+        .start-button {
+            background-color: transparent; /* 设置背景色为透明 */
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .start-menu {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background-color: #dce4ef;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 1;
+        }
+
+        .change-bg-button {
+            background-color: #0078d4;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            box-shadow: 0px 0px 2px 2px #0078d4;
+        }
+        
+        .arduino-img {
+            position: absolute;
+            width: 60px;
+            top: 20px;
+            left: 30px;
+        }
+        
+        .arduino-folder-img {
+            position: absolute;
+            width: 60px;
+            top: 110px;
+            left: 30px;
+        }
+        
+        .google-img {
+            position: absolute;
+            width: 120px;
+            top: 170px;
+            left: 0px;
+        }
+
+        .poe-img {
+            position: absolute;
+            width: 110px;
+            top: 265px;
+            left: 5px;
+        }
+
+        .win11-img {
+            position: absolute;
+            bottom: 3.5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+        }
+       
+    </style>
+</head>
+<body>
+
+    <div class="taskbar">
+        <button class="start-button" onclick="toggleStartMenu()">
+            <img class="win11-img" src="Windows_11.png">
+        </button>
+        <div class="start-menu" id="startMenu">
+            <a href="#" onclick="return openNewWindow1();">应用中心</a>
+            <a href="#" onclick="return openNewWindow2();">关于本机 (公告)</a>
+            <a href="https://peisi0.github.io/win11/">重启</a>
+        </div>
+    </div>
+
+    <a href="#" onclick="return openNewWindow3();">
+        <img class="icon arduino-img" src="Arduino圖標.png" alt="Arduino">
+    </a>
+
+    <a href="#" onclick="return openNewWindow4();">
+        <img class="icon arduino-folder-img" src="arduino-folder.png" alt="Arduino Folder">
+    </a>
+    
+    <a href="#" onclick="return openNewWindow5();">
+        <img class="icon google-img" src="GC.png" alt="Google">
+    </a>
+
+    <a href="#" onclick="return openNewWindow6();">
+        <img class="icon poe-img" src="poe.png" alt="poe">   
+    </a>
+
+    <button class="change-bg-button" onclick="return changeBackground();">
+        切换背景
+    </button>
+
+    <script>
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        let currentBackground = 1;
+
+        function changeBackground() {
+            currentBackground = (currentBackground % 4) + 1;
+            document.body.style.backgroundImage = `url('bg${currentBackground}.png')`;
+            return false; // Prevent default button action
+        }
+
+        function openNewWindow1() {
+            window.open('https://apps.microsoft.com/', '_blank', 'width=800,height=600');
+            return false;
+        }
+
+        function openNewWindow2() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600');
+            return false;
+        }
+
+        function openNewWindow3() {
+            window.open('https://wokwi.com/projects/new/arduino-mega/', '_blank', 'width=800,height=600');
+            return false;
+        }
+
+        function openNewWindow4() {
+            window.open('https://austin-pig.github.io/arduino/', '_blank', 'width=800,height=600');
+            return false;
+        }
+
+        function openNewWindow5() {
+            window.open('https://google.com/', '_blank', 'width=800,height=600');
+            return false;
+        }
+
+        function openNewWindow6() {
+            window.open('https://poe.com/', '_blank', 'width=800,height=600');
+            return false;
+        }
+
+        window.onclick = function(event) {
+            const isStartButton = event.target.matches('.start-button') || event.target.closest('.start-button');
+            const isChangeBackgroundButton = event.target.matches('.change-bg-button');
+
+            if (!isStartButton && !isChangeBackgroundButton) {
+                const menu = document.getElementById('startMenu');
+                if (menu.style.display === 'block') {
+                    menu.style.display = 'none';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
