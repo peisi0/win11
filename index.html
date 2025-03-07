@@ -93,7 +93,13 @@
             top: 265px; /* 距离顶部265px */
             left: 5px; /* 距离左侧5px */
         }
-
+        
+        .sound-img {
+            width:110px;
+            top: 320px;
+            left: 5px;
+        }
+        
         .win11-img {
             position: absolute; /* 绝对定位 */
             bottom: 3.5px; /* 距离底部3.5px */
@@ -101,6 +107,8 @@
             transform: translateX(-50%); /* 向左偏移50%以居中 */
             width: 40px; /* 图标宽度 */
         }
+
+        
        
     </style>
 </head>
@@ -111,7 +119,7 @@
             <img class="win11-img" src="Windows_11.png" alt="Windows 11 Logo"> <!-- Windows 11图标 -->
         </button>
         <div class="start-menu" id="startMenu"> <!-- 开始菜单 -->
-            <a href="#" onclick="return openNewWindow1();" class="menu-link">应用中心</a> <br> <!-- 应用中心链接 -->
+            <a href="https://apps.microsoft.com/" onclick="return openNewWindow1();" class="menu-link">应用中心</a> <br> <!-- 应用中心链接 -->
             <a href="#" onclick="return openNewWindow2();" class="menu-link">关于本机 (公告)</a> <br> <!-- 关于本机链接 -->
             <a href="https://peisi0.github.io/win11/" class="menu-link">重启</a> <br> <!-- 重启链接 -->
         </div>
@@ -147,6 +155,10 @@
 
     <a href="#" onclick="return openNewWindow6();">
         <img class="icon poe-img" src="poe.png" alt="poe"> <!-- Poe图标 -->   
+    </a>
+
+    <a href="sound/turnonlighton.mp3" onclick="return playSound();" class="sound-img" id="sound-img">
+        <audio id="audio" src="sound/turnonlighton.mp3"></audio> 
     </a>
 
     <button class="change-bg-button" onclick="return changeBackground();">
@@ -196,6 +208,7 @@
             window.open('https://poe.com/', '_blank', 'width=800,height=600'); // 打开Poe
             return false; // 阻止默认链接动作
         }
+
 
         window.onclick = function(event) {
             const isStartButton = event.target.matches('.start-button') || event.target.closest('.start-button'); // 检查是否点击开始按钮
