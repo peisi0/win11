@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win11 模拟器</title>
+    <link rel="icon" href="Windows_11.png" type="image/png">
+    <style>
+        body {
+            margin: 0; /* 去掉默认边距 */
+            padding: 0; /* 去掉默认内边距 */
+            height: 100vh; /* 使用视口高度 */
+            overflow: hidden; /* 隐藏溢出内容 */
+            font-family: Arial, sans-serif; /* 设置字体 */
+            background-image: url('background/bg1.png'); /* 设置背景图片 */
+            background-size: cover; /* 背景图片覆盖整个区域 */
+            background-position: center; /* 背景图片居中 */
+            background-repeat: no-repeat; /* 不重复背景图片 */
+            color: white; /* 设置字体颜色为白色 */
+        }
+        
+        .taskbar {
+            position: fixed; /* 固定位置 */
+            bottom: 0; /* 距离底部0 */
+            left: 0; /* 距离左侧0 */
+            right: 0; /* 距离右侧0 */
+            height: 50px; /* 设置任务栏高度 */
+            background-color: rgba(230, 230, 255, 0.9); /* 半透明背景颜色 */
+            display: flex; /* 使用flex布局 */
+            align-items: center; /* 垂直居中对齐 */
+            justify-content: center; /* 水平居中对齐 */
+            padding: 0 20px; /* 左右内边距 */
+        }
+        
+        .start-button {
+            background-color: transparent; /* 背景色透明 */
+            border: none; /* 去掉边框 */
+            padding: 0; /* 去掉内边距 */
+            margin: 0; /* 去掉外边距 */
+            cursor: pointer; /* 鼠标悬停时显示为手指 */
+        }
+        
+        .start-menu {
+            position: absolute; /* 绝对定位 */
+            bottom: 60px; /* 距离底部60px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 向左偏移50%以居中 */
+            width: 200px; /* 菜单宽度 */
+            background-color: #dce4ef; /* 菜单背景颜色 */
+            border-radius: 5px; /* 圆角效果 */
+            padding: 10px; /* 内边距 */
+            display: none; /* 默认隐藏菜单 */
+            z-index: 1; /* 设置堆叠顺序 */
+        }
+
+        .change-bg-button {
+            background-color: #0078d4; /* 按钮背景颜色 */
+            border: none; /* 去掉边框 */
+            color: white; /* 字体颜色为白色 */
+            padding: 10px 20px; /* 内边距 */
+            border-radius: 5px; /* 圆角效果 */
+            cursor: pointer; /* 鼠标悬停时显示为手指 */
+            font-size: 16px; /* 字体大小 */
+            position: absolute; /* 绝对定位 */
+            top: 10px; /* 距离顶部10px */
+            right: 10px; /* 距离右侧10px */
+            box-shadow: 0px 0px 2px 2px #0078d4; /* 添加阴影效果 */
+        }
+        
+        .arduino-img, .arduino-folder-img, .google-img, .poe-img {
+            position: absolute; /* 绝对定位 */
+            width: 60px; /* 图标宽度 */
+        }
+
+        .arduino-img {
+            top: 20px; /* 距离顶部20px */
+            left: 30px; /* 距离左侧30px */
+        }
+        
+        .arduino-folder-img {
+            top: 110px; /* 距离顶部110px */
+            left: 30px; /* 距离左侧30px */
+        }
+        
+        .google-img {
+            width: 120px; /* 图标宽度 */
+            top: 170px; /* 距离顶部170px */
+            left: 0; /* 距离左侧0 */
+        }
+
+        .poe-img {
+            width: 110px; /* 图标宽度 */
+            top: 265px; /* 距离顶部265px */
+            left: 5px; /* 距离左侧5px */
+        }
+        
+        .sound-img {
+            position: absolute;
+            width: 50px;
+            top: 354px;
+            left: 33px;
+        }
+        
+        .win11-img {
+            position: absolute; /* 绝对定位 */
+            bottom: 3.5px; /* 距离底部3.5px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 向左偏移50%以居中 */
+            width: 40px; /* 图标宽度 */
+        }
+
+        
+       
+    </style>
+</head>
+<body>
+
+    <div class="taskbar">
+        <button class="start-button" onclick="toggleStartMenu()">
+            <img class="win11-img" src="Windows_11.png" alt="Windows 11 Logo"> <!-- Windows 11图标 -->
+        </button>
+        <div class="start-menu" id="startMenu"> <!-- 开始菜单 -->
+            <a href="https://apps.microsoft.com/" onclick="return openNewWindow1();" class="menu-link">应用中心</a> <br> <!-- 应用中心链接 -->
+            <a href="#" onclick="return openNewWindow2();" class="menu-link">关于本机 (公告)</a> <br> <!-- 关于本机链接 -->
+            <a href="https://peisi0.github.io/win11/" class="menu-link">重启</a> <br> <!-- 重启链接 -->
+        </div>
+    </div>
+    
+    <style>
+        .start-menu {
+            /* 其他样式保持不变 */
+        }
+    
+        .menu-link {
+            color: black; /* 设置链接文字颜色为黑色 */
+            text-decoration: none; /* 去掉下划线 */
+            font-size: 18px; /* 调大字体大小，可以根据需要修改 */
+        }
+    
+        .menu-link:hover {
+            text-decoration: underline; /* 鼠标悬停时可选的下划线效果 */
+        }
+    </style>
+
+    <a href="#" onclick="return openNewWindow3();">
+        <img class="icon arduino-img" src="Arduino圖標.png" alt="Arduino"> <!-- Arduino图标 -->
+    </a>
+
+    <a href="#" onclick="return openNewWindow4();">
+        <img class="icon arduino-folder-img" src="arduino-folder.png" alt="Arduino Folder"> <!-- Arduino文件夹图标 -->
+    </a>
+    
+    <a href="#" onclick="return openNewWindow5();">
+        <img class="icon google-img" src="GC.png" alt="Google"> <!-- Google图标 -->
+    </a>
+
+    <a href="#" onclick="return openNewWindow6();">
+        <img class="icon poe-img" src="poe.png" alt="poe"> <!-- Poe图标 -->   
+    </a>
+
+    <a href="sound/turnonlighton.mp3" onclick="return playSound();" target = "_blank">
+        <img class="icon sound-img" src="speaker.png" alt="sound">
+        <audio id="audio" src="sound/turnonlighton.mp3"></audio> 
+    </a>
+
+    <button class="change-bg-button" onclick="return changeBackground();">
+        切换背景 <!-- 切换背景按钮 -->
+    </button>
+
+    <script>
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu'); // 获取开始菜单
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; // 切换菜单显示状态
+        }
+
+        let currentBackground = 1; // 当前背景索引
+
+        function changeBackground() {
+            currentBackground = (currentBackground % 4) + 1; // 切换背景索引
+            document.body.style.backgroundImage = `url('background/bg${currentBackground}.png')`; // 更新背景图片
+            return false; // 阻止默认按钮动作
+        }
+
+        function openNewWindow1() {
+            window.open('https://apps.microsoft.com/', '_blank', 'width=800,height=600'); // 打开应用中心
+            return false; // 阻止默认链接动作
+        }
+
+        function openNewWindow2() {
+            window.open('https://austin-pig.github.io/announcement/', '_blank', 'width=800,height=600'); // 打开公告页面
+            return false; // 阻止默认链接动作
+        }
+
+        function openNewWindow3() {
+            window.open('https://wokwi.com/projects/new/arduino-mega/', '_blank', 'width=800,height=600'); // 打开Arduino项目
+            return false; // 阻止默认链接动作
+        }
+
+        function openNewWindow4() {
+            window.open('https://austin-pig.github.io/arduino/', '_blank', 'width=800,height=600'); // 打开Arduino文件夹
+            return false; // 阻止默认链接动作
+        }
+
+        function openNewWindow5() {
+            window.open('https://google.com/', '_blank', 'width=800,height=600'); // 打开Google
+            return false; // 阻止默认链接动作
+        }
+
+        function openNewWindow6() {
+            window.open('https://poe.com/', '_blank', 'width=800,height=600'); // 打开Poe
+            return false; // 阻止默认链接动作
+        }
+
+
+        window.onclick = function(event) {
+            const isStartButton = event.target.matches('.start-button') || event.target.closest('.start-button'); // 检查是否点击开始按钮
+            const isChangeBackgroundButton = event.target.matches('.change-bg-button'); // 检查是否点击切换背景按钮
+
+            if (!isStartButton && !isChangeBackgroundButton) { // 如果没有点击开始按钮和切换背景按钮
+                const menu = document.getElementById('startMenu'); // 获取开始菜单
+                if (menu.style.display === 'block') { // 如果菜单是显示状态
+                    menu.style.display = 'none'; // 隐藏菜单
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
