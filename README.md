@@ -1,6 +1,6 @@
 # Windows 11.1 Project 🧪  
 [![Experimental](https://img.shields.io/badge/Status-Experimental-orange?style=for-the-badge)](https://github.com/peisi0/win11)  
-**开发者：peisi0**  
+**开发者：peisi0, AL-Sama0**  
 **仓库地址：**[https://github.com/peisi0/win11](https://github.com/peisi0/win11)  
 
 ---
