@@ -62,8 +62,7 @@ make -j$(nproc) HYPERVISOR=qemu
 ```
 
 ### 运行截图  
-![3D Desktop Preview](docs/preview.png)  
-*(建议补充实际渲染效果图)*
+![3D Desktop Preview](showcase.jpeg)  
 
 ---
 
