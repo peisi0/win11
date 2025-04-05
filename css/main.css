@@ -1,0 +1,55 @@
+:root {
+    --taskbar-height: 48px;
+    --accent-color: #0078d4;
+    --window-border-radius: 8px;
+    --surface-blur: rgba(255, 255, 255, 0.85);
+}
+
+/* 窗口样式 */
+.window {
+    position: absolute;
+    background: var(--surface-blur);
+    border-radius: var(--window-border-radius);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    min-width: 400px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.window-header {
+    height: 32px;
+    background: rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    cursor: move;
+}
+
+/* 任务栏样式 */
+win-taskbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: var(--taskbar-height);
+    background: var(--surface-blur);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 10px;
+}
+
+/* 桌面图标 */
+desktop-shortcut {
+    width: 80px;
+    padding: 8px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s;
+    cursor: pointer;
+}
+
+desktop-shortcut:hover {
+    transform: scale(1.05);
+}
