@@ -4,7 +4,7 @@ body {
     height: 100vh; /* 使用视口高度 */
     overflow: hidden; /* 隐藏溢出内容 */
     font-family: Arial, sans-serif; /* 设置字体 */
-    background-image: url('background/bg1.png'); /* 设置背景图片 */
+    background-image: url('assets/background/bg1.png'); /* 设置背景图片 */
     background-size: cover; /* 背景图片覆盖整个区域 */
     background-position: center; /* 背景图片居中 */
     background-repeat: no-repeat; /* 不重复背景图片 */
