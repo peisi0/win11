@@ -8,7 +8,7 @@ function toggleStartMenu() {
 let currentBackground = 1;
 function changeBackground() {
     currentBackground = (currentBackground % 4) + 1;
-    document.body.style.backgroundImage = `url('background/bg${currentBackground}.png')`;
+    document.body.style.backgroundImage = `url('assets/background/bg${currentBackground}.png')`;
     return false;
 }
 
