@@ -5,7 +5,7 @@ function toggleStartMenu() {
 }
 
 // 背景切换功能
-let currentBackground = 1;
+let currentBackground = 0;
 function changeBackground() {
     currentBackground = (currentBackground % 4) + 1;
     document.body.style.backgroundImage = `url('assets/background/bg${currentBackground}.png')`;
