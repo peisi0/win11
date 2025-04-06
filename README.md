@@ -63,7 +63,7 @@ make -j$(nproc) HYPERVISOR=qemu
 
 ### 运行截图  
  **手机端:** 
-![3D Desktop Preview](assets/docs/showcase_phone.png)  
+![3D Desktop Preview](assets/docs/showcase_phone.jpeg)  
 
 
  **PC端:** 
