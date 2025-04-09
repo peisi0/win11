@@ -54,3 +54,24 @@ window.onclick = function(event) {
         if (menu.style.display === 'block') menu.style.display = 'none';
     }
 }
+
+function updateClock() {
+    const now = new Date();
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+
+    // 更新时间显示
+    document.getElementById('time').textContent = 
+        now.toLocaleTimeString('zh-CN', { hour12: false });
+    
+    // 更新日期显示
+    document.getElementById('date').textContent = 
+        now.toLocaleDateString('zh-CN', options);
+}
+
+// 立即执行并设置每秒更新
+updateClock();
+setInterval(updateClock, 1000);
