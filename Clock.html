@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Clock</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            gap: 2rem;
+        }
+
+        /* 方形时钟保留 */
+        #clock {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* 圆形时钟容器 */
+        #analog-clock {
+            width: 75vw;          /* 视口宽度的75% */
+            height: 75vw;         /* 保持宽高相等 */
+            max-width: 600px;     /* 最大尺寸限制 */
+            max-height: 600px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* 自适应指针系统 */
+        .hand {
+            position: absolute;
+            transform-origin: bottom center;
+            left: 50%;
+            background: #333;
+        }
+
+        #hour-hand {
+            width: 1.5%;
+            height: 25%;          /* 时钟高度的25% */
+            top: 25%;             /* 100% - height */
+            margin-left: -0.75%; /* 负值宽度的一半 */
+            background: #333;
+        }
+
+        #minute-hand {
+            width: 1%;
+            height: 35%;
+            top: 15%;
+            margin-left: -0.5%;
+            background: #666;
+        }
+
+        #second-hand {
+            width: 0.5%;
+            height: 40%;
+            top: 10%;
+            margin-left: -0.25%;
+            background: #ff4444;
+        }
+
+        .center-dot {
+            width: 2%;
+            height: 2%;
+            background: #ff4444;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <!-- 方形时钟 -->
+    <div id="clock">
+        <div class="time" id="time">00:00:00</div>
+        <div class="date" id="date">2023年8月17日 星期四</div>
+    </div>
+
+    <!-- 比例圆形时钟 -->
+    <div id="analog-clock">
+        <div class="center-dot"></div>
+        <div id="hour-hand" class="hand"></div>
+        <div id="minute-hand" class="hand"></div>
+        <div id="second-hand" class="hand"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // 数字时钟更新
+            document.getElementById('time').textContent = 
+                now.toLocaleTimeString('zh-CN', { hour12: false });
+            document.getElementById('date').textContent = 
+                now.toLocaleDateString('zh-CN', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+
+            // 获取精确时间
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const milliseconds = now.getMilliseconds();
+
+            // 角度计算（从12点方向开始）
+            const secondDegrees = (seconds * 6) + (milliseconds * 0.006);
+            const minuteDegrees = (minutes * 6) + (seconds * 0.1);
+            const hourDegrees = (hours * 30) + (minutes * 0.5);
+
+            // 应用旋转角度
+            document.getElementById('second-hand').style.transform = 
+                `rotate(${secondDegrees}deg)`;
+            document.getElementById('minute-hand').style.transform = 
+                `rotate(${minuteDegrees}deg)`;
+            document.getElementById('hour-hand').style.transform = 
+                `rotate(${hourDegrees}deg)`;
+        }
+
+        // 使用requestAnimationFrame实现流畅动画
+        function smoothUpdate() {
+            updateClock();
+            requestAnimationFrame(smoothUpdate);
+        }
+        smoothUpdate();
+    </script>
+</body>
+</html>
