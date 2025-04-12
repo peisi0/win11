@@ -1,3 +1,9 @@
+// 页面加载时强制设置初始背景
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.backgroundImage = "url('assets/background/bg1.png')";
+});
+
+
 // 开始菜单切换
 function toggleStartMenu() {
     const menu = document.getElementById('startMenu');
@@ -5,7 +11,7 @@ function toggleStartMenu() {
 }
 
 // 背景切换功能
-let currentBackground = 0;
+let currentBackground = 1;
 function changeBackground() {
     currentBackground = (currentBackground % 4) + 1;
     document.body.style.backgroundImage = `url('assets/background/bg${currentBackground}.png')`;
