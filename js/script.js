@@ -46,6 +46,10 @@ function openNewWindow6() {
     window.open('https://poe.com/', '_blank', 'width=800,height=600');
     return false;
 }
+function openNewWindow7() {
+    window.open('https://github.com/KLPig/underia', '_blank', 'width=800,height=600');
+    return false;
+}
 
 // 音频播放
 function playSound() {
