@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.backgroundImage = "url('assets/background/bg1.png')";
 });
 
+document.getElementById('clock').addEventListener('click', function () {
+    window.location.href = 'https://peisi0.github.io/win11/clock/';
+});
 
 // 开始菜单切换
 function toggleStartMenu() {
