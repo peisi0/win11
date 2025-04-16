@@ -17,15 +17,16 @@
 
         /* 方形时钟保留 */
         #clock {
-            background: white;
-            padding: 2rem 3rem;
+            background-color: rgb(255, 255, 255, 0);
+            padding: 1rem 2rem;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            font-size: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0);
             text-align: center;
         }
 
         /* 圆形时钟容器 */
-        #analog-clock {
+        #analog-clock { 
             width: 75vw;          /* 视口宽度的75% */
             height: 75vw;         /* 保持宽高相等 */
             max-width: 600px;     /* 最大尺寸限制 */
@@ -84,8 +85,7 @@
 <body>
     <!-- 方形时钟 -->
     <div id="clock">
-        <div class="time" id="time">00:00:00</div>
-        <div class="date" id="date">2023年8月17日 星期四</div>
+        <div class="date" id="date">2023/8/17 Thr</div>
     </div>
 
     <!-- 比例圆形时钟 -->
@@ -101,14 +101,13 @@
             const now = new Date();
             
             // 数字时钟更新
-            document.getElementById('time').textContent = 
-                now.toLocaleTimeString('zh-CN', { hour12: false });
             document.getElementById('date').textContent = 
-                now.toLocaleDateString('zh-CN', { 
-                    weekday: 'long', 
+                now.toLocaleDateString('en-US', {
                     year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                    month: 'numeric', 
+                    day: 'numeric',
+                    weekday: 'short',
+                    timeZoneName: 'short'
                 });
 
             // 获取精确时间
