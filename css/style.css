@@ -127,10 +127,10 @@ body {
 
 .win11-img {
     position: absolute; /* 绝对定位 */
-    bottom: 3.5px; /* 距离底部3.5px */
+    bottom: 8px; /* 距离底部3.5px */
     left: 50%; /* 水平居中 */
     transform: translateX(-50%); /* 向左偏移50%以居中 */
-    width: 40px; /* 图标宽度 */
+    width: 30px; /* 图标宽度 */
 }
 
 .menu-link {
