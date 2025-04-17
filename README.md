@@ -3,7 +3,7 @@
 **开发者：peisi0, AL-sama0**  
 **仓库地址：**[https://github.com/peisi0/win11](https://github.com/peisi0/win11) 
 
-## [立即体验](https://peisi0.github.io/win11) 
+## [点击立即体验](https://peisi0.github.io/win11) 
 
 ---
 
