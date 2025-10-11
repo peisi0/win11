@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win11.45</title>
+    <title>Win11 模拟器</title>
     <link rel="icon" href="Windows-11.png" type="image/png">
     <link rel="stylesheet" href="css/style.css"> <!-- 外部 CSS 链接 -->
 </head>
 <body>
-    <!-- 任务栏 -->
+    <!-- start -->
     <div class="taskbar">
         <button class="start-button" onclick="toggleStartMenu()">
             <img class="win11-img" src="Windows-11.png" alt="Windows 11 Logo">
@@ -21,11 +21,11 @@
     </div>
 
     <div id="clock">
-        <div id="time">00:00:00</div>
-        <div id="date">2023年8月17日</div>
+        <div id="time">11:45:14</div>
+        <div id="date">2050年5月10日</div>
     </div>
 
-    <!-- 桌面图标 -->
+    <!-- icons -->
     <a href="#" onclick="return openNewWindow3();">
         <img class="arduino-img" src="assets/Icon_img/Arduino.png" alt="Arduino">
     </a>
@@ -46,18 +46,17 @@
         <img class="underia-img" src="assets/Icon_img/underia.png" alt="underia">  
     </a>
 
-    <!-- 音频控制 -->
+    <!-- sound (te la de hai zao) -->
     <a href="#" onclick="return playSound();">
         <img class="sound-img" src="assets/Icon_img/speaker.png" alt="sound">
     </a>
     <audio id="audio" src="assets/sound/turnonlighton.mp3"></audio>
 
-    <!-- 切换背景按钮 -->
+    <!-- bg-button -->
     <button class="change-bg-button" onclick="return changeBackground();">
         切换背景
     </button>
 
-    <script src="js/script.js"></script> <!-- 外部 JS 链接 -->
+    <script src="js/script.js"></script> 
 </body>
 </html>
-
