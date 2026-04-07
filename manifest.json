@@ -1,20 +1,25 @@
 {
-  "name": "Windows 11",
-  "short_name": "Windows 11",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#111111",
-  "theme_color": "#191919",
+  "name": "Windows 11 Simulator",
+  "short_name": "Win11",
+  "start_url": "/win11/",
+  "scope": "/win11/",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#0078d4",
+  "description": "Windows 11 Web Simulator",
   "icons": [
     {
       "src": "Windows-11.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "Windows-11.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

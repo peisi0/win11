@@ -37,6 +37,7 @@
 
 body {
     min-height: 100vh;
+    min-height: -webkit-fill-available;
     overflow: hidden;
     font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     background-image: url('../assets/background/bg1.png');
@@ -45,6 +46,18 @@ body {
     background-repeat: no-repeat;
     color: white;
     transition: background-image 0.8s ease-in-out;
+    position: relative;
+}
+
+/* iOS PWA fullscreen support */
+@supports (-webkit-touch-callout: none) {
+    body {
+        min-height: -webkit-fill-available;
+    }
+}
+
+html {
+    height: -webkit-fill-available;
 }
 
 /* Boot animation */
