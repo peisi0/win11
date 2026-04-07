@@ -1,142 +1,461 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Time Clock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock - Windows 11</title>
     <link rel="icon" href="../Windows_11.png" type="image/png">
     <style>
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent: #0078d4;
+            --accent-glow: rgba(0, 120, 212, 0.4);
+            --clock-face: linear-gradient(145deg, #1e1e3f, #0f0f1a);
+            --hand-hour: #ffffff;
+            --hand-minute: #a0a0a0;
+            --hand-second: #ff4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            background: #f0f0f0;
-            font-family: Arial, sans-serif;
+            background: var(--bg-primary);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: var(--text-primary);
+            gap: 2rem;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 120, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 68, 68, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Clock Mode Toggle */
+        .clock-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            padding: 0.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .toggle-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* Clock Container */
+        .clock-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             gap: 2rem;
         }
 
-        /* 方形时钟保留 */
-        #clock {
-            background-color: rgb(255, 255, 255, 0);
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            font-size: 40px;
-            box-shadow: 0 0 20px rgba(0,0,0,0);
+        /* Digital Clock */
+        .digital-clock {
             text-align: center;
+            animation: fadeIn 0.5s ease;
         }
 
-        /* 圆形时钟容器 */
-        #analog-clock { 
-            width: 75vw;          /* 视口宽度的75% */
-            height: 75vw;         /* 保持宽高相等 */
-            max-width: 600px;     /* 最大尺寸限制 */
-            max-height: 600px;
+        .digital-clock.hidden {
+            display: none;
+        }
+
+        .digital-time {
+            font-size: clamp(4rem, 15vw, 10rem);
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(0, 120, 212, 0.3);
+        }
+
+        .digital-time .seconds {
+            font-size: 0.4em;
+            opacity: 0.6;
+            vertical-align: super;
+        }
+
+        .digital-date {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .digital-timezone {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* Analog Clock */
+        .analog-clock {
+            width: min(400px, 80vw);
+            height: min(400px, 80vw);
             border-radius: 50%;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: var(--clock-face);
             position: relative;
+            box-shadow: 
+                0 0 0 8px rgba(255, 255, 255, 0.05),
+                0 0 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease;
         }
 
-        /* 自适应指针系统 */
+        .analog-clock.hidden {
+            display: none;
+        }
+
+        /* Clock Marks */
+        .clock-marks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mark {
+            position: absolute;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translateX(-50%);
+        }
+
+        .mark.hour-mark {
+            height: 20px;
+            top: 10px;
+            width: 3px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .mark.minute-mark {
+            height: 10px;
+            top: 15px;
+        }
+
+        /* Clock Numbers */
+        .clock-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .number {
+            position: absolute;
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            transform: translate(-50%, -50%);
+        }
+
+        /* Clock Hands */
         .hand {
             position: absolute;
-            transform-origin: bottom center;
             left: 50%;
-            background: #333;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            z-index: 10;
         }
 
-        #hour-hand {
-            width: 1.5%;
-            height: 25%;          /* 时钟高度的25% */
-            top: 25%;             /* 100% - height */
-            margin-left: -0.75%; /* 负值宽度的一半 */
-            background: #333;
+        .hour-hand {
+            width: 6px;
+            height: 25%;
+            bottom: 50%;
+            margin-left: -3px;
+            background: linear-gradient(to top, var(--hand-hour), rgba(255, 255, 255, 0.8));
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
-        #minute-hand {
-            width: 1%;
+        .minute-hand {
+            width: 4px;
             height: 35%;
-            top: 15%;
-            margin-left: -0.5%;
-            background: #666;
+            bottom: 50%;
+            margin-left: -2px;
+            background: linear-gradient(to top, var(--hand-minute), rgba(160, 160, 160, 0.8));
         }
 
-        #second-hand {
-            width: 0.5%;
+        .second-hand {
+            width: 2px;
             height: 40%;
-            top: 10%;
-            margin-left: -0.25%;
-            background: #ff4444;
+            bottom: 50%;
+            margin-left: -1px;
+            background: var(--hand-second);
+            box-shadow: 0 0 15px var(--hand-second);
         }
 
         .center-dot {
-            width: 2%;
-            height: 2%;
-            background: #ff4444;
-            border-radius: 50%;
             position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--hand-second);
+            border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2;
+            z-index: 11;
+            box-shadow: 0 0 20px var(--hand-second);
+        }
+
+        /* Both Clocks Mode */
+        .both-mode .digital-clock,
+        .both-mode .analog-clock {
+            display: block;
+        }
+
+        .both-mode .digital-time {
+            font-size: clamp(2rem, 8vw, 4rem);
+        }
+
+        .both-mode .analog-clock {
+            width: min(300px, 60vw);
+            height: min(300px, 60vw);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .clock-toggle {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .toggle-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 方形时钟 -->
-    <div id="clock">
-        <div class="date" id="date">2023/8/17 Thr</div>
+    <!-- Back Button -->
+    <a href="../" class="back-btn">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back
+    </a>
+
+    <!-- Clock Mode Toggle -->
+    <div class="clock-toggle">
+        <button class="toggle-btn" data-mode="digital" onclick="setClockMode('digital')">Digital</button>
+        <button class="toggle-btn active" data-mode="both" onclick="setClockMode('both')">Both</button>
+        <button class="toggle-btn" data-mode="analog" onclick="setClockMode('analog')">Analog</button>
     </div>
 
-    <!-- 比例圆形时钟 -->
-    <div id="analog-clock">
-        <div class="center-dot"></div>
-        <div id="hour-hand" class="hand"></div>
-        <div id="minute-hand" class="hand"></div>
-        <div id="second-hand" class="hand"></div>
+    <!-- Clock Container -->
+    <div class="clock-container both-mode" id="clockContainer">
+        <!-- Digital Clock -->
+        <div class="digital-clock" id="digitalClock">
+            <div class="digital-time" id="digitalTime">
+                <span class="hours">00</span>:<span class="minutes">00</span><span class="seconds">:00</span>
+            </div>
+            <div class="digital-date" id="digitalDate">Loading...</div>
+            <div class="digital-timezone" id="digitalTimezone"></div>
+        </div>
+
+        <!-- Analog Clock -->
+        <div class="analog-clock" id="analogClock">
+            <div class="clock-marks" id="clockMarks"></div>
+            <div class="clock-numbers" id="clockNumbers"></div>
+            <div class="hour-hand hand" id="hourHand"></div>
+            <div class="minute-hand hand" id="minuteHand"></div>
+            <div class="second-hand hand" id="secondHand"></div>
+            <div class="center-dot"></div>
+        </div>
     </div>
 
     <script>
+        // Initialize clock marks
+        function initClockMarks() {
+            const marksContainer = document.getElementById('clockMarks');
+            const numbersContainer = document.getElementById('clockNumbers');
+            const radius = 42; // percentage from center
+            
+            // Create marks
+            for (let i = 0; i < 60; i++) {
+                const mark = document.createElement('div');
+                mark.className = i % 5 === 0 ? 'mark hour-mark' : 'mark minute-mark';
+                mark.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+                marksContainer.appendChild(mark);
+            }
+            
+            // Create numbers
+            for (let i = 1; i <= 12; i++) {
+                const angle = (i * 30 - 90) * (Math.PI / 180);
+                const x = 50 + radius * Math.cos(angle);
+                const y = 50 + radius * Math.sin(angle);
+                
+                const number = document.createElement('div');
+                number.className = 'number';
+                number.textContent = i;
+                number.style.left = x + '%';
+                number.style.top = y + '%';
+                numbersContainer.appendChild(number);
+            }
+        }
+
+        // Update clock
         function updateClock() {
             const now = new Date();
-            
-            // 数字时钟更新
-            document.getElementById('date').textContent = 
-                now.toLocaleDateString('en-US', {
-                    year: 'numeric', 
-                    month: 'numeric', 
-                    day: 'numeric',
-                    weekday: 'short',
-                    timeZoneName: 'short'
-                });
-
-            // 获取精确时间
-            const hours = now.getHours() % 12;
+            const hours = now.getHours();
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
             const milliseconds = now.getMilliseconds();
 
-            // 角度计算（从12点方向开始）
+            // Digital clock
+            const hours12 = hours % 12 || 12;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const digitalTime = document.getElementById('digitalTime');
+            digitalTime.innerHTML = `
+                <span class="hours">${String(hours).padStart(2, '0')}</span>:<span class="minutes">${String(minutes).padStart(2, '0')}</span><span class="seconds">:${String(seconds).padStart(2, '0')}</span>
+            `;
+
+            // Digital date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('digitalDate').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Timezone
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('digitalTimezone').textContent = timezone;
+
+            // Analog clock hands
             const secondDegrees = (seconds * 6) + (milliseconds * 0.006);
             const minuteDegrees = (minutes * 6) + (seconds * 0.1);
-            const hourDegrees = (hours * 30) + (minutes * 0.5);
+            const hourDegrees = ((hours % 12) * 30) + (minutes * 0.5);
 
-            // 应用旋转角度
-            document.getElementById('second-hand').style.transform = 
-                `rotate(${secondDegrees}deg)`;
-            document.getElementById('minute-hand').style.transform = 
-                `rotate(${minuteDegrees}deg)`;
-            document.getElementById('hour-hand').style.transform = 
-                `rotate(${hourDegrees}deg)`;
+            document.getElementById('secondHand').style.transform = `rotate(${secondDegrees}deg)`;
+            document.getElementById('minuteHand').style.transform = `rotate(${minuteDegrees}deg)`;
+            document.getElementById('hourHand').style.transform = `rotate(${hourDegrees}deg)`;
         }
 
-        // 使用requestAnimationFrame实现流畅动画
-        function smoothUpdate() {
+        // Set clock mode
+        function setClockMode(mode) {
+            const container = document.getElementById('clockContainer');
+            const digital = document.getElementById('digitalClock');
+            const analog = document.getElementById('analogClock');
+            
+            // Update toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+
+            // Reset classes
+            container.className = 'clock-container';
+            digital.classList.remove('hidden');
+            analog.classList.remove('hidden');
+
+            switch (mode) {
+                case 'digital':
+                    analog.classList.add('hidden');
+                    break;
+                case 'analog':
+                    digital.classList.add('hidden');
+                    break;
+                case 'both':
+                    container.classList.add('both-mode');
+                    break;
+            }
+
+            // Save preference
+            localStorage.setItem('clockMode', mode);
+        }
+
+        // Smooth animation loop
+        function animate() {
             updateClock();
-            requestAnimationFrame(smoothUpdate);
+            requestAnimationFrame(animate);
         }
-        smoothUpdate();
+
+        // Initialize
+        initClockMarks();
+        
+        // Load saved mode
+        const savedMode = localStorage.getItem('clockMode') || 'both';
+        setClockMode(savedMode);
+        
+        // Start animation
+        animate();
     </script>
 </body>
 </html>

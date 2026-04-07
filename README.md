@@ -1,95 +1,106 @@
-# Windows 11.1 Project 🧪 (25w16)
-[![Experimental](https://img.shields.io/badge/Windows%2011.1-blue?style=for-the-badge)](https://peisi0.github.io/win11)     [![Experimental](https://img.shields.io/badge/Status-Experimental-orange?style=flat)](https://github.com/peisi0/win11)  
-**开发者：peisi0, AL-sama0**  
-**仓库地址：**[https://github.com/peisi0/win11](https://github.com/peisi0/win11) 
+# Windows 11 Web Simulator 🪟
 
-## [点击立即体验](https://peisi0.github.io/win11) 
+[![Live Demo](https://img.shields.io/badge/Demo-Live-blue?style=for-the-badge)](https://peisi0.github.io/win11)
+[![Status](https://img.shields.io/badge/Status-Active-green?style=flat)](https://github.com/peisi0/win11)
 
----
+**Developers:** peisi0, AL-sama0  
+**Repository:** [github.com/peisi0/win11](https://github.com/peisi0/win11)
 
-## 🌟 项目愿景  
-**Windows 11.1** 是一个探索下一代操作系统设计的实验性项目，旨在通过模块化架构和开源协作，重新定义用户与操作系统的交互范式。  
+## [🚀 Try it Now](https://peisi0.github.io/win11)
 
 ---
 
-## 🚀 核心特性  
-### 🧩 模块化设计  
-- **可拆卸组件**: 自由替换系统核心模块（如文件管理器、网络栈）  
-- **热插拔内核**: 支持运行时动态加载/卸载驱动模块  
+## ✨ Features
 
-### ⚡ 性能突破  
-- **轻量化进程调度**: 比 Windows 11 减少 40% 上下文切换开销  
-- **混合内存管理**: 结合 LRU 与 AI 预测的内存回收策略  
+### 🎨 Modern UI
+- **Glassmorphism Design** - Frosted glass effects with backdrop blur
+- **Smooth Animations** - CSS transitions and transforms
+- **Responsive Layout** - Works on desktop, tablet, and mobile
+- **Dark/Light Theme** - Toggle between themes
 
-### 🔄 革命性交互  
-- **3D 空间桌面**: 基于 Vulkan 的沉浸式工作环境  
-- **自然语言 Shell**: 语音/文本混合指令系统  
+### 🖥️ Desktop Experience
+- **Desktop Icons** - Click to launch applications
+- **Start Menu** - Pinned apps with search functionality
+- **Taskbar** - Windows 11-style centered taskbar
+- **Quick Actions Panel** - Wi-Fi, Bluetooth, Night Light toggles
+- **Context Menu** - Right-click for desktop options
+
+### ⏰ Clock Application
+- **Digital Clock** - Large, modern digital time display
+- **Analog Clock** - Smooth sweeping second hand
+- **Both Modes** - View digital and analog together
+- **Date & Timezone** - Full date and timezone info
+
+### 🔔 System Features
+- **Notifications** - Toast-style notifications
+- **Wallpaper Switching** - 4 beautiful backgrounds
+- **Sound Effects** - Audio feedback
+- **Keyboard Shortcuts** - Meta key, Escape support
+- **LocalStorage** - Remembers your preferences
 
 ---
 
-## 📦 技术架构  
-```text
-├── Kernel11.1          - 定制化混合内核 (C++/Rust)  
-├── HyperVision         - 3D 桌面渲染引擎 (Vulkan)  
-├── NovaShell          - 智能命令行解释器 (Python/Lua)  
-└── QuantumDriver      - 硬件抽象层 (Rust)  
+## 📁 Project Structure
+
+```
+win11/
+├── index.html          # Main desktop page
+├── css/style.css       # Modern Windows 11 styling
+├── js/script.js        # Interactive functionality
+├── clock/              # Clock application
+│   └── index.html      # Digital + Analog clock
+├── assets/
+│   ├── background/     # Wallpapers (bg1-4.png)
+│   ├── Icon_img/       # Application icons
+│   ├── sound/          # Audio files
+│   └── docs/           # Screenshots
+└── README.md
 ```
 
 ---
 
-## ⚠️ 警告  
-```text
-❗ 这是高度实验性项目，当前状态：  
-- 仅支持 QEMU/KVM 虚拟化环境运行  
-- 不兼容现有 Windows 应用  
-- 硬件要求：至少 16GB RAM + 支持 Vulkan 的 GPU  
-```
+## 🎮 How to Use
+
+1. **Start Menu** - Click Windows logo or press `Win` key
+2. **Search** - Type in search box, press Enter to Bing search
+3. **Quick Actions** - Click clock to open action center
+4. **Change Wallpaper** - Click gear icon or right-click desktop
+5. **Theme Toggle** - Find in start menu or context menu
+6. **Clock App** - Click "Clock" in start menu for full clock view
 
 ---
 
-## 🛠️ 开发者指南  
+## 📸 Screenshots
 
-### 编译环境  
-```bash
-# 依赖项安装 (Ubuntu 示例)
-sudo apt install llvm-14 clang ninja-build vulkan-sdk
-rustup target add x86_64-unknown-none
-```
-
-### 构建命令  
-```bash
-git clone https://github.com/peisi0/win11.git
-cd win11
-make -j$(nproc) HYPERVISOR=qemu
-```
-
-### 运行截图  
- **手机端:** 
-![3D Desktop Preview](assets/docs/showcase_phone.jpeg)  
-
-
- **PC端:** 
-![3D Desktop Preview](assets/docs/showcase_pc.png)  
-
-
-**iPad端:**
-![3D Desktop Preview](assets/docs/showcase_iPad.png)
+| Mobile | Desktop | iPad |
+|--------|---------|------|
+| ![Mobile](assets/docs/showcase_phone.jpeg) | ![Desktop](assets/docs/showcase_pc.png) | ![iPad](assets/docs/showcase_iPad.png) |
 
 ---
 
-## 🌍 参与贡献  
-欢迎以下方向的 PR：  
-- 编写硬件兼容性适配层  
-- 优化 AI 内存预测模型  
-- 设计交互范式原型  
+## 🛠️ Technologies
+
+- **HTML5** - Semantic structure
+- **CSS3** - Variables, Flexbox, Grid, Animations
+- **JavaScript** - Vanilla JS, no frameworks
+- **LocalStorage** - Persistent preferences
 
 ---
 
-## 📜 开源协议  
-采用 **GPLv3 with Ecosystem Exception**，允许衍生项目闭源商业化组件。
+## 🤝 Contributing
+
+PRs welcome! Areas to contribute:
+- New applications/widgets
+- Additional wallpapers
+- Accessibility improvements
+- Mobile optimizations
 
 ---
 
-**🚧 项目处于早期阶段，如感兴趣，欢迎Star支持！**  
+## 📜 License
 
+Open source - feel free to learn from and build upon this project!
 
+---
+
+**⭐ Star this repo if you like it!**
