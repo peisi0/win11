@@ -1,6 +1,3 @@
-/* ========================================
-   Windows 11 Simulator - Enhanced Script
-   ======================================== */
 
 // State Management
 const state = {
@@ -8,9 +5,7 @@ const state = {
     totalBackgrounds: 4,
     isStartMenuOpen: false,
     isQuickActionsOpen: false,
-    theme: 'light',
-    volume: 75,
-    brightness: 100
+    theme: 'light'
 };
 
 // DOM Elements
@@ -33,7 +28,6 @@ function initializeElements() {
     elements.contextMenu = document.getElementById('contextMenu');
     elements.timeDisplay = document.getElementById('time');
     elements.dateDisplay = document.getElementById('date');
-    elements.audio = document.getElementById('audio');
     elements.notification = document.getElementById('notification');
 }
 
@@ -287,35 +281,13 @@ function openUnderia() {
     return openNewWindow('https://github.com/KLPig/underia', 'Underia');
 }
 
-// Audio System
-function playSound() {
-    const audio = elements.audio;
-    if (!audio) return false;
-    
-    const soundIcon = document.querySelector('.sound-icon');
-    
-    if (audio.paused) {
-        audio.play();
-        if (soundIcon) soundIcon.classList.add('audio-playing');
-    } else {
-        audio.pause();
-        audio.currentTime = 0;
-        if (soundIcon) soundIcon.classList.remove('audio-playing');
-    }
-    
-    return false;
+// Refresh/Restart
+function refreshDesktop() {
+    location.reload();
 }
 
-function setVolume(value) {
-    state.volume = value;
-    if (elements.audio) {
-        elements.audio.volume = value / 100;
-    }
-    localStorage.setItem('win11-volume', value);
-}
-
-// Notification System
-function showNotification(title, message, type = 'info') {
+// Search Function
+function handleSearch(event) {
     const notification = elements.notification;
     if (!notification) return;
     
@@ -360,13 +332,6 @@ function loadSavedSettings() {
     if (savedTheme) {
         state.theme = savedTheme;
         document.documentElement.setAttribute('data-theme', savedTheme);
-    }
-    
-    // Load volume
-    const savedVolume = localStorage.getItem('win11-volume');
-    if (savedVolume && elements.audio) {
-        state.volume = parseInt(savedVolume);
-        elements.audio.volume = state.volume / 100;
     }
 }
 
@@ -432,10 +397,6 @@ window.openArduinoFolder = openArduinoFolder;
 window.openGoogle = openGoogle;
 window.openPoe = openPoe;
 window.openUnderia = openUnderia;
-window.playSound = playSound;
-window.setVolume = setVolume;
-window.refreshDesktop = refreshDesktop;
-window.handleSearch = handleSearch;
 window.toggleWifi = toggleWifi;
 window.toggleBluetooth = toggleBluetooth;
 window.toggleAirplaneMode = toggleAirplaneMode;

@@ -117,9 +117,8 @@
         }
 
         .digital-time .seconds {
-            font-size: 0.4em;
-            opacity: 0.6;
-            vertical-align: super;
+            font-size: 1em;
+            opacity: 1;
         }
 
         .digital-date {
@@ -158,6 +157,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
+            border-radius: 50%;
         }
 
         .mark {
@@ -165,20 +165,25 @@
             width: 2px;
             background: rgba(255, 255, 255, 0.3);
             left: 50%;
-            transform-origin: bottom center;
-            transform: translateX(-50%);
+            top: 8px;
+            margin-left: -1px;
+            transform-origin: center 192px;
         }
 
         .mark.hour-mark {
-            height: 20px;
-            top: 10px;
+            height: 12px;
             width: 3px;
+            margin-left: -1.5px;
             background: rgba(255, 255, 255, 0.6);
         }
 
         .mark.minute-mark {
-            height: 10px;
-            top: 15px;
+            height: 6px;
+        }
+
+        /* Both mode - smaller clock needs different transform-origin */
+        .both-mode .mark {
+            transform-origin: center 142px;
         }
 
         /* Clock Numbers */
@@ -276,6 +281,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
 
         .back-btn:hover {
@@ -350,9 +356,10 @@
         function initClockMarks() {
             const marksContainer = document.getElementById('clockMarks');
             const numbersContainer = document.getElementById('clockNumbers');
-            const radius = 42; // percentage from center
+            const clockSize = 400; // reference size
+            const radius = 42; // percentage from center for numbers
             
-            // Create marks
+            // Create marks around the clock edge
             for (let i = 0; i < 60; i++) {
                 const mark = document.createElement('div');
                 mark.className = i % 5 === 0 ? 'mark hour-mark' : 'mark minute-mark';
@@ -395,9 +402,12 @@
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('digitalDate').textContent = now.toLocaleDateString('en-US', options);
             
-            // Timezone
+            // Timezone - format nicely
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            document.getElementById('digitalTimezone').textContent = timezone;
+            const tzParts = timezone.split('/');
+            const city = tzParts[tzParts.length - 1].replace(/_/g, ' ');
+            const offset = now.toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+            document.getElementById('digitalTimezone').textContent = `${city} (${offset})`;
 
             // Analog clock hands
             const secondDegrees = (seconds * 6) + (milliseconds * 0.006);
