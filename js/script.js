@@ -75,14 +75,6 @@ function setupEventListeners() {
     
     // Window resize
     window.addEventListener('resize', handleResize);
-    
-    // Clock click - go to clock page
-    const clock = document.getElementById('clock');
-    if (clock) {
-        clock.addEventListener('click', () => {
-            window.location.href = 'clock/';
-        });
-    }
 }
 
 // Global click handler

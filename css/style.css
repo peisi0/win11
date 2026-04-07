@@ -472,7 +472,7 @@ body.loading::before {
     transform: translateY(10px);
     transition: all var(--transition-smooth);
     z-index: 998;
-    width: 320px;
+    width: 360px;
 }
 
 .quick-actions.show {
@@ -483,7 +483,7 @@ body.loading::before {
 
 .quick-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
     margin-bottom: 16px;
 }
@@ -499,6 +499,8 @@ body.loading::before {
     background: rgba(0, 0, 0, 0.04);
     cursor: pointer;
     transition: all var(--transition-fast);
+    text-decoration: none;
+    color: inherit;
 }
 
 .quick-btn:hover {
