@@ -167,7 +167,7 @@
             left: 50%;
             top: 8px;
             margin-left: -1px;
-            transform-origin: center 192px;
+            transform-origin: 50% 192px;
         }
 
         .mark.hour-mark {
@@ -180,10 +180,22 @@
         .mark.minute-mark {
             height: 6px;
         }
-
-        /* Both mode - smaller clock needs different transform-origin */
+        
         .both-mode .mark {
-            transform-origin: center 142px;
+            transform-origin: 50% 142px;
+            top: 8px;
+        }
+        
+        .both-mode .mark.hour-mark {
+            height: 8px;
+            width: 2px;
+            margin-left: -1px;
+        }
+        
+        .both-mode .mark.minute-mark {
+            height: 4px;
+            width: 1.5px;
+            margin-left: -0.75px;
         }
 
         /* Clock Numbers */
@@ -356,14 +368,13 @@
         function initClockMarks() {
             const marksContainer = document.getElementById('clockMarks');
             const numbersContainer = document.getElementById('clockNumbers');
-            const clockSize = 400; // reference size
             const radius = 42; // percentage from center for numbers
             
             // Create marks around the clock edge
             for (let i = 0; i < 60; i++) {
                 const mark = document.createElement('div');
                 mark.className = i % 5 === 0 ? 'mark hour-mark' : 'mark minute-mark';
-                mark.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+                mark.style.transform = `rotate(${i * 6}deg)`;
                 marksContainer.appendChild(mark);
             }
             
@@ -435,7 +446,7 @@
             digital.classList.remove('hidden');
             analog.classList.remove('hidden');
 
-            switch (mode) {
+            switch (mode) { 
                 case 'digital':
                     analog.classList.add('hidden');
                     break;
