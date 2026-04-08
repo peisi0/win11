@@ -516,6 +516,8 @@ body.loading::before {
     width: 20px;
     height: 20px;
     margin-bottom: 4px;
+    fill: var(--text-primary);
+    stroke: transparent;
 }
 
 .quick-btn span {
@@ -525,6 +527,17 @@ body.loading::before {
 
 .quick-btn.active span {
     color: white;
+}
+
+.quick-btn.active svg,
+.quick-btn.active svg path,
+.quick-btn.active svg circle,
+.quick-btn.active svg line,
+.quick-btn.active svg polyline,
+.quick-btn.active svg polygon,
+.quick-btn.active svg rect {
+    fill: white;
+    stroke: white;
 }
 
 /* Sliders */
